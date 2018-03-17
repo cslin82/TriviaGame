@@ -57,6 +57,13 @@ function scoreGame() {
     $('#radio-7d').is(":checked") ? correct++ : incorrect++;
     $('#radio-8b').is(":checked") ? correct++ : incorrect++;
     $('#radio-9d').is(":checked") ? correct++ : incorrect++;
+
+    $('#main-game-area').hide();
+
+    $('#result').text('correct: ' + correct + ' and incorrect: ' + incorrect + ' for a percentage of ' + Math.round(100*(correct/(correct+incorrect)))+ '%');
+
+
+
 }
 
 // Main jQuery wrapper
@@ -71,10 +78,12 @@ $(document).ready(function() {
     timersp = $('#timersp');
     mainGameArea = $('#main-game-area');
 
-    $('#showQ').click(showQ);
-    $('#showQ2').click(showQ2);
-    $('#clearQ').click(clearQ);
-    $('#timerExpire').click(timerExpire);
+    $('#show-q').click(showQ);
+    // $('#show-q2').click(showQ2);
+    $('#clear-q').click(clearQ);
+    $('#timer-expire').click(timerExpire);
+    $('#score-me').click(scoreGame);
+
 
     
 

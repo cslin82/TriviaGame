@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Bootstrap Trivia game</title>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -22,11 +22,12 @@
         <div class="container" id="main-game-area">
             <h2>Main game area to append things into</h2>
 
-            <button id="showQ">showQ</button>
-            <button id="showQ2">showQ2</button>
-            <button id="clearQ">clearQ</button>
-            <button id="timerExpire">timerExpire</button>
-
+            <button id="show-q">showQ</button>
+            <button id="show-q2">showQ2</button>
+            <button id="clear-q">clearQ</button>
+            <button id="timer-expire">timerExpire</button>
+            <button id="score-me">scoreMe</button>
+            
             <h3>Question 1</h3>
             <input type="radio" name="q1" id="radio-1a">
             <label for="radio-1a">Q1 radio a</label>
@@ -118,14 +119,8 @@
             <input type="radio" name="q9" id="radio-9d">
             <label for="radio-9d">Q9 radio d</label>
 
-
-
-
-
-
-
-
         </div>
+        <div id="result"></div>
     </div>
 
 
