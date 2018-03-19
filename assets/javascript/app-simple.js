@@ -57,6 +57,7 @@ function scoreGame() {
     $('#radio-7d').is(":checked") ? correct++ : incorrect++;
     $('#radio-8b').is(":checked") ? correct++ : incorrect++;
     $('#radio-9d').is(":checked") ? correct++ : incorrect++;
+    $('#radio-10a').is(":checked") ? correct++ : incorrect++;
 
     $('#main-game-area').hide();
 
