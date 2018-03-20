@@ -1,6 +1,4 @@
 // Global variable definitions
-
-// var mainGameArea;
 var newUL;
 var newLI;
 var qaDiv;
@@ -10,6 +8,7 @@ var timer = timerMax;
 var timerfrac;
 var counterID;
 var timerOn = false;
+var gameActive = false;
 
 var currentQuestion;
 var correct = 0;
@@ -91,10 +90,8 @@ function gameEnd() {
 function newQuestion(qIndex) {
     currentQuestion = Object.assign({}, gameQuestions[qIndex]);
     $('#questionH2').text(currentQuestion.q);
-    shuffleFY(answerDeck);
-    console.log('answerDeck: '+ answerDeck);
 
-    // could do this the other way***
+    shuffleFY(answerDeck);
     for (var indexA = 0; indexA < 4; indexA++) {
         var myIndex = answerDeck[indexA];
         $('#answer-' + (indexA+1) + '>h4').text(currentQuestion.a[myIndex]);
@@ -103,16 +100,15 @@ function newQuestion(qIndex) {
     }
 
     // and reset, show and start the timer
+    gameActive = true;
     timer = timerMax;
     $('#timerbar').css("width", "100%");
     $('#timerrow').show();
-    console.log('timer started');
     if (!timerOn) {
         $('#timerspan').text(timer);
         timerOn = true;
         counterID = setInterval(function () {
             timer--;
-            console.log(timer);
 
             $('#timerspan').text(timer);
             timerfrac = Math.round((timer / timerMax) * 100);
@@ -123,32 +119,20 @@ function newQuestion(qIndex) {
                 $('#answer-' + (answerDeck.indexOf(0)+1)).addClass("list-group-item-success");
                 alert('time up');
 
-                
-
                 clearInterval(counterID);
                 timerOn = false;
                 return;
             }
         }, 1000);
     }
-
-
 }
 
 $(document).ready(function() {
 
     console.log( "ready!" );
-    // debugger;
-    
-    // Create selectors
-    // mainGameArea = $('#main-game-area');
-    // mainContainer = $('.container'); // would need to also define globally
     qaDiv = $('#questionanswer');
 
-
     // Dynamically generate question and answer elements, timer progress bar
-    // newDiv = $('<div>');
-    // newDiv.addClass("col-md-8 col-md-offset-2").attr("id", "questionanswer").append($('<h2>').attr("id","questionH2"));
     $('#questionanswer').append($('<h2>').attr("id","questionH2"));
     
     newUL = $('<ul>');
@@ -158,106 +142,38 @@ $(document).ready(function() {
         newLI = $('<li>');
         newLI.addClass("list-group-item text-center answers");
         newLI.attr("id", "answer-" + (indexA+1));
-        console.log('id set to ' + "answer-" + (indexA+1) );
-        
         newLI.append($('<h4>'));
         newUL.append(newLI);
-        console.log('li ' + indexA + ' appended to ul');
-        
     }
     $('#questionanswer').append(newUL);
-    console.log('ul appended to #questionanswer');
-
-    // Pick a question and show it source
-    
-    
 
     // Click listeners
     $('.answers').click(function() {
-        console.log('clicked ' + $(this).attr('id'));
-        console.log('and data.value is ' + $(this).data('value'));
-
-        if (timerOn) {
-            clearInterval(counterID);
-            timerOn = false;
-            $('#timerrow').hide();
-            console.log('timer stopped on answer, timer hidden');
-
+        if (gameActive) {
+            if (timerOn) {
+                clearInterval(counterID);
+                timerOn = false;
+                $('#timerrow').hide();
+                console.log('timer stopped on answer, timer hidden');
+            }
+            if ($(this).data('value') === 0) {
+                $(this).addClass("list-group-item-success");
+                alert('correct');
+            } else {
+                $(this).addClass("list-group-item-danger");
+                alert('incorrect');
+            }
+            gameActive = false;
         }
-        if ($(this).data('value') === 0) {
-            $(this).addClass("list-group-item-success");
-            alert('correct');
-        } else {
-            $(this).addClass("list-group-item-danger");
-            alert('incorrect');
-        }
 
 
-    });
-    
-    $('#timerbar').click(function(){
-        timer--;
-        timerfrac = Math.round( (timer/timerMax) * 100 );
-        $('#timerspan').text(timer);
-        $(this).css("width", timerfrac+"%");
-    });
-    
-    $('#questionH2').click(function(){
-        $('#questionanswer').hide();
-        $('.progress').hide();
-    });
-    
-    $('#headh1').click(function(){
-        $('#questionanswer').show();
-        $('.progress').show();
+        
+        
+
+
     });
     
     newQuestion(randomInt(0,10));
-
-
-    // temporary for timer testing
-    $('#startbutton').click(function () {
-        console.log('start button pressed');
-        if (!timerOn) {
-            $('#timerspan').text(timer);
-            timerOn = true;
-            counterID = setInterval(function () {
-                timer--;
-                console.log(timer);
-
-                $('#timerspan').text(timer);
-                timerfrac = Math.round((timer / timerMax) * 100);
-                $('#timerbar').css("width", timerfrac + "%");
-
-                if (timer <= 0) {
-                    
-                    alert('time up');
-
-
-                    clearInterval(counterID);
-                    timerOn = false;
-                    return;
-                }
-            }, 1000);
-        }
-
-    });
-
-
-    $('#stopbutton').click(function () {
-        if (timerOn) {
-            clearInterval(counterID);
-            timerOn = false;
-
-        }
-
-    });
-
-
-
-
-
-
 
 // end jQuery
 });
