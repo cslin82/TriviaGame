@@ -1,19 +1,21 @@
 // Global variable definitions
 
-var mainGameArea;
-var newDiv;
+// var mainGameArea;
 var newUL;
 var newLI;
 var qaDiv;
 
-var timerh;
 var timerMax = 15;
 var timer = timerMax;
 var timerfrac;
+var counterID;
+var timerOn = false;
 
 var currentQuestion;
 var correct = 0;
 var incorrect = 0;
+
+
 
 // Game questions for Smithsonian Institution theme
 const gameQuestions = [
@@ -72,6 +74,10 @@ const gameQuestions = [
     },
 ]
 
+// easiest to hard code these, could generalize with for loop or fancy array.apply() methods
+// https://stackoverflow.com/questions/3746725/create-a-javascript-array-containing-1-n https://stackoverflow.com/a/20066663
+var answerDeck = [0, 1, 2, 3];
+var questionDeck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 
 // inclusive
@@ -101,7 +107,7 @@ $(document).ready(function() {
     // debugger;
     
     // Create selectors
-    mainGameArea = $('#main-game-area');
+    // mainGameArea = $('#main-game-area');
     // mainContainer = $('.container'); // would need to also define globally
     qaDiv = $('#questionanswer');
 
@@ -120,8 +126,6 @@ $(document).ready(function() {
         newLI.attr("id", "answer-" + (indexA+1));
         console.log('id set to ' + "answer-" + (indexA+1) );
         
-        newLI.data("value", indexA);
-        console.log('data-value set to ' + indexA );
         newLI.append($('<h4>'));
         newUL.append(newLI);
         console.log('li ' + indexA + ' appended to ul');
@@ -131,20 +135,38 @@ $(document).ready(function() {
     console.log('ul appended to #questionanswer');
 
     // Pick a question and show it 
-    currentQuestion = Object.assign({}, gameQuestions[randomInt(0, gameQuestions.length)]);
-    $('#questionH2').text(currentQuestion.q);
-
-    for (var indexA = 0; indexA < 4; indexA++) {
-        $('#answer-' + (indexA+1) + '>h4').text(currentQuestion.a[indexA]);
+    function newQuestion(qIndex) {
+        currentQuestion = Object.assign({}, gameQuestions[qIndex]);
+        $('#questionH2').text(currentQuestion.q);
+        shuffleFY(answerDeck);
+        console.log('answerDeck: '+ answerDeck);
+        for (var indexA = 0; indexA < 4; indexA++) {
+            var myIndex = answerDeck[indexA];
+            $('#answer-' + (indexA+1) + '>h4').text(currentQuestion.a[myIndex]);
+            $('#answer-' + (indexA+1)).data("value", myIndex);
+        }
     }
-    // wrap this in a for loop later
-
-
+    
 
      // Click listeners
     $('.answers').click(function() {
         console.log('clicked ' + $(this).attr('id'));
         console.log('and data.value is ' + $(this).data('value'));
+
+        if (timerOn) {
+            clearInterval(counterID);
+            timerOn = false;
+
+        }
+        if ($(this).data('value') === 0) {
+            $(this).addClass("list-group-item-success");
+            alert('correct');
+        } else {
+            $(this).addClass("list-group-item-danger");
+            alert('incorrect');
+        }
+
+
     });
     
     $('#timerbar').click(function(){
@@ -164,6 +186,51 @@ $(document).ready(function() {
         $('.progress').show();
     });
     
+    newQuestion(randomInt(0,10));
+
+
+    // temporary for timer testing
+    $('#startbutton').click(function () {
+        console.log('start button pressed');
+        if (!timerOn) {
+            $('#timerspan').text(timer);
+            timerOn = true;
+            counterID = setInterval(function () {
+                timer--;
+                console.log(timer);
+
+                $('#timerspan').text(timer);
+                timerfrac = Math.round((timer / timerMax) * 100);
+                $('#timerbar').css("width", timerfrac + "%");
+
+                if (timer <= 0) {
+                    
+                    alert('time up');
+
+
+                    clearInterval(counterID);
+                    timerOn = false;
+                    return;
+                }
+            }, 1000);
+        }
+
+    });
+
+
+    $('#stopbutton').click(function () {
+        if (timerOn) {
+            clearInterval(counterID);
+            timerOn = false;
+
+        }
+
+    });
+
+
+
+
+
 
 
 // end jQuery
