@@ -65,11 +65,6 @@ const gameQuestions = [
 var answerDeck = [0, 1, 2, 3];
 var questionDeck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-// inclusive
-function randomInt(min, max) {
-    return Math.floor(min + Math.random() * (1 + max - min));
-}
-
 // shuffle functions from https://bost.ocks.org/mike/shuffle/compare.html
 function shuffleFY(array) {
     var m = array.length, t, i;
@@ -80,9 +75,6 @@ function shuffleFY(array) {
         array[i] = t;
     }
 }
-
-
-
 
 $(document).ready(function () {
 
@@ -146,20 +138,20 @@ $(document).ready(function () {
             }, 3000);
         }
     }
-// Scoring function
-function gameEnd() {
-    // alert( 'correct: ' + correct + ' and incorrect: ' + incorrect + ' for a percentage of ' + Math.round(100*(correct/(correct+incorrect+omit)))+ '%' );
-    qaDiv.empty();
-    // $('#timerrow').hide();
+    // Scoring function
+    function gameEnd() {
+        // alert( 'correct: ' + correct + ' and incorrect: ' + incorrect + ' for a percentage of ' + Math.round(100*(correct/(correct+incorrect+omit)))+ '%' );
+        qaDiv.empty();
+        // $('#timerrow').hide();
 
-    qaDiv.append($('<h2>').text('Game over!'));
-    qaDiv.append($('<h3>').text('You got ' + correct + ' correct, missed ' + incorrect + ' and did not answer ' + omit + ' questions.'));
-    qaDiv.append($('<h3>').text('Your score is ' + Math.round(100 * (correct / (correct + incorrect + omit))) + '%'));
-    qaDiv.append('<button class="btn btn-primary btn-lg btn-block" id="starter-btn">Start a new game</button>');
-    $('#starter-btn').click(function () {
-        newGame();
-    });
-}
+        qaDiv.append($('<h2>').text('Game over!'));
+        qaDiv.append($('<h3>').text('You got ' + correct + ' correct, missed ' + incorrect + ' and did not answer ' + omit + ' questions.'));
+        qaDiv.append($('<h3>').text('Your score is ' + Math.round(100 * (correct / (correct + incorrect + omit))) + '%'));
+        qaDiv.append('<button class="btn btn-primary btn-lg btn-block" id="starter-btn">Start a new game</button>');
+        $('#starter-btn').click(function () {
+            newGame();
+        });
+    }
     console.log("ready!");
     qaDiv = $('#questionanswer');
 
@@ -187,7 +179,6 @@ function gameEnd() {
                     clearInterval(counterID);
                     timerOn = false;
                     $('#timerrow').hide();
-                    console.log('timer stopped on answer, timer hidden');
                 }
                 if ($(this).data('value') === 0) {
                     $(this).addClass("list-group-item-success");
@@ -201,15 +192,9 @@ function gameEnd() {
                 }
                 gameActive = false;
 
-                // *** need to move this out of this click handler so it handles non-answers
                 questiondone();
             }
-            // $('#timerrow').show();
-
-
         });
-
-
 
         shuffleFY(questionDeck);
 
@@ -223,7 +208,6 @@ function gameEnd() {
     $('#starter').click(function () {
         newGame();
     });
-
 
     // end jQuery
 });
