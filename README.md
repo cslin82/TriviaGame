@@ -9,9 +9,9 @@ At the end of the game, present score, and present option to restart game withou
 
 ## As Implemented
 
-Simple version uses HTML radio buttons to make answers mutually exclusive. Simple ternary operator to score questions.
+[Simple version](bootstrap-trivia.html) uses HTML radio buttons to make answers mutually exclusive. Simple ternary operator to score questions.
 
-Advanced version dynamically manipulates DOM and uses Bootstrap's `.list-group` to hold answers. Changes the color using bootstrap classes to show incorrect and correct answers.
+[Advanced version](bootstrap-trivia-advanced.html) dynamically manipulates DOM and uses Bootstrap's `.list-group` to hold answers. Changes the color using bootstrap classes to show incorrect and correct answers.
 
 Questions are stored with the correct answer first (zeroth element), and their placement on the page is by a shuffled array. Questions are presented in shuffled order as well. Both are randomized using a shuffled array containing the indexes. The shuffle is a Fisher-Yates implemenation by Mike Bostock, source in comments.
 
