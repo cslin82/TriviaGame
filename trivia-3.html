@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap for styling</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1 id="headh1">
+                This document demonstrates the question and answer holders, as well as a progress bar that can be set
+            </h1>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" id="questionanswer">
+            <h2 id="questionH2">
+                Question goes here
+            </h2>
+            <ul class="list-group">
+                <li class="list-group-item text-center answers" id="answer-1" data-value="0"><h4>a;sldj;laskj;aslfg</h4></li>
+                <li class="list-group-item text-center answers" id="answer-2" data-value="1"><h4>a;sldj;laskj;aslfg</h4></li>
+                <li class="list-group-item text-center answers" id="answer-3" data-value="2"><h4>a;sldj;laskj;aslfg</h4></li>
+                <li class="list-group-item text-center answers" id="answer-4" data-value="3"><h4>a;sldj;laskj;aslfg</h4></li>
+            </ul>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+                <div class="progress">
+                    <div class="progress-bar" id="timerbar" role="progressbar" style="width: 100%;">
+                        <span class="sr-only" id="timerspan">15</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="main-game-area">
+            
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("ready!");
+
+            var timerMax = 15;
+            var timer = timerMax;
+            var timerfrac;
+
+            $('.answers').click(function() {
+                console.log('clicked ' + $(this).attr('id'));
+                console.log('and data.value is ' + $(this).data('value'));
+            });
+            
+            $('#timerbar').click(function(){
+                timer--;
+                timerfrac = Math.round( (timer/timerMax) * 100 );
+                $('#timerspan').text(timer);
+                $(this).css("width", timerfrac+"%");
+            });
+            
+            $('#questionH2').click(function(){
+                $('#questionanswer').hide();
+                $('.progress').hide();
+            });
+            
+            $('#headh1').click(function(){
+                $('#questionanswer').show();
+                $('.progress').show();
+            });
+            
+
+            headh1
+
+            // end jQuery
+        });
+
+    </script>
+</body>
+</html>

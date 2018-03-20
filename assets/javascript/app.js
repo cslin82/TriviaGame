@@ -12,47 +12,18 @@ var currentQuestion;
 
 // array or object of questions of form question text, answer choices, correct answer
 
-const questions = [
+const gameQuestions = [
     {
-        question: "question 1",
-        answers: [
+        q: "question 1",
+        a: [
             "a",
             "b",
             "c",
             "d"            
         ],
-        correct: "a"
+        correct: 0 // array index of a
     },
-    {
-        question: "question 2",
-        answers: [
-            "e",
-            "f",
-            "g",
-            "h"            
-        ],
-        correct: "g"
-    },
-    {
-        question: "question 3",
-        answers: [
-            "i",
-            "j",
-            "k",
-            "l"            
-        ],
-        correct: "k"
-    },
-    {
-        question: "question 4",
-        answers: [
-            "m",
-            "n",
-            "o",
-            "p"            
-        ],
-        correct: "o"
-    }
+
 
 ]
 

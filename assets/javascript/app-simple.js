@@ -33,7 +33,7 @@ function shuffleFY(array) {
     }
 }
 
-function showQ(q, index) {
+function showQ() {
     console.log('showQ called');
     // console.log('question:' + q[index].question);
     // console.log('answers array: ' + q[index].answers);
