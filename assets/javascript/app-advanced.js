@@ -15,6 +15,65 @@ var currentQuestion;
 var correct = 0;
 var incorrect = 0;
 
+// Game questions for Smithsonian Institution theme
+const gameQuestions = [
+    {
+        q: "In what year was the Smithsonian Institution established?",
+        a: ["1846", "1861", "1934", "1776"],
+        correct: 0 // array index of a
+    },
+    {
+        q: "Who was the founding donor the Smithsonian is named after?",
+        a: ["James Smithson", "Robert Smithson", "John Smith", "Samuel Smithsonian"],
+        correct: 0 // array index of a
+    },
+    {
+        q: "Which of these is National things is NOT a Smithsonian museum?",
+        a: ["National Gallery of Art", "National Zoo", "National Museum of African American History and Culture", "National Museum of the American Indian"],
+        correct: 0 // array index of a
+    },
+
+    {
+        q: "Which of these National things is a Smithsonian museum?",
+        a: ["National Postal Museum", "National Archives", "National Museum of Women in the Arts", "Washington Nationals"],
+        correct: 0 // array index of a
+    },
+
+    {
+        q: "At which Washington-area airport is the Steven F. Udvar-Hazy Center located?",
+        a: ["Washington Dulles International Airport", "Ronald Reagan Washington National Airport", "Baltimore–Washington International Airport", "Andrews Air Force Base"],
+        correct: 0 // array index of a
+    },
+
+    {
+        q: "At which museum would you find the Greensboro Lunch Counter?",
+        a: ["National Museum of American History", "National Museum of African American History and Culture", "Smithsonian American Art Museum", "Arthur M. Sackler Gallery"],
+        correct: 0 // array index of a
+    },
+    {
+        q: "Which of these Smithsonian museums is located on the National Mall?",
+        a: ["Freer Gallery of Art", "Renwick Gallery", "National Postal Museum", "Anacostia Community Museum"],
+        correct: 0 // array index of a
+    },
+    {
+        q: "Which of these Smithsonian museums is the newest?",
+        a: ["National Museum of African American History and Culture", "National Air and Space Museum", "Hirshhorn Museum and Sculpture Garden", "National Museum of Natural History"],
+        correct: 0 // array index of a
+    },
+    {
+        q: "Which Space Shuttle orbiter would you find at the Steven F. Udvar-Hazy Center?",
+        a: ["Discovery", "Atlantis", "Endeavour", "Enterprise"],
+        correct: 0 // array index of a
+    },
+    {
+        q: "What government agency formerly occupied the current site of the Smithsonian American Art Museum and the National Portrait Gallery?",
+        a: ["Patent Office", "Department of War", "National Endowment for the Arts", "Department of Education"],
+        correct: 0 // array index of a
+    },
+]
+
+
+
 // inclusive
 function randomInt(min, max) {
     return Math.floor(min + Math.random() * (1 + max - min));
@@ -71,30 +130,18 @@ $(document).ready(function() {
     $('#questionanswer').append(newUL);
     console.log('ul appended to #questionanswer');
 
-    $('#questionH2').text('Question text inserted');
+    // Pick a question and show it 
+    currentQuestion = Object.assign({}, gameQuestions[randomInt(0, gameQuestions.length)]);
+    $('#questionH2').text(currentQuestion.q);
 
     for (var indexA = 0; indexA < 4; indexA++) {
-        $('#answer-' + (indexA+1) + '>h4').text('answer ' + (indexA+1))
+        $('#answer-' + (indexA+1) + '>h4').text(currentQuestion.a[indexA]);
     }
+    // wrap this in a for loop later
 
-    
-    // Add question elements
 
-    // newDiv = $('<div>');
-    // newDiv.text(gameQuestion1.q);
-    // mainGameArea.append(newDiv);
-    // console.log("appended q");
 
-    // for (var i = 0; i < gameQuestion1.a.length; i++) {
-    //     newDiv = $('<div>');
-    //     newDiv.addClass('class' + gameQuestion1.a[i]);
-    //     newDiv.text("new div of class class" + testArray[i] + " and question is " + gameQuestion1.a[i]);
-    //     mainGameArea.append(newDiv);
-    //     console.log("appended a" + gameQuestion1.a[i]);
-
-    // }
-
-    // Click listeners
+     // Click listeners
     $('.answers').click(function() {
         console.log('clicked ' + $(this).attr('id'));
         console.log('and data.value is ' + $(this).data('value'));
