@@ -120,7 +120,7 @@ $(document).ready(function () {
                 if (timer <= 0) {
 
                     $('#answer-' + (answerDeck.indexOf(0) + 1)).addClass("list-group-item-success");
-                    alert('time up');
+                    // alert('time up');
                     $('#timerrow').hide();
                     omit++;
 
@@ -192,12 +192,12 @@ function gameEnd() {
                 if ($(this).data('value') === 0) {
                     $(this).addClass("list-group-item-success");
                     correct++;
-                    alert('correct');
+                    // alert('correct');
                 } else {
                     $(this).addClass("list-group-item-danger");
                     $('#answer-' + (answerDeck.indexOf(0) + 1)).addClass("list-group-item-success");
                     incorrect++;
-                    alert('incorrect');
+                    // alert('incorrect');
                 }
                 gameActive = false;
 
