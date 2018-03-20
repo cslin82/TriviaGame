@@ -10,42 +10,11 @@ var currentQuestion;
 var correct = 0;
 var incorrect = 0;
 
-// game reset/initialize
+var timerMax = 120;
+var timer = timerMax;
+var counterID;
+var timerOn = false;
 
-// array or object of questions of form question text, answer choices, correct answer
-
-
-// 
-
-// inclusive
-function randomInt(min, max) {
-    return Math.floor(min + Math.random() * (1 + max - min));
-}
-
-// shuffle functions from https://bost.ocks.org/mike/shuffle/compare.html
-function shuffleFY(array) {
-    var m = array.length, t, i;
-    while (m) {
-        i = Math.floor(Math.random() * m--);
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
-    }
-}
-
-function showQ() {
-    console.log('showQ called');
-    // console.log('question:' + q[index].question);
-    // console.log('answers array: ' + q[index].answers);
-}
-
-function clearQ() {
-    console.log('clearQ called');
-}
-
-function timerExpire() {
-    console.log('timerExpire called');
-}
 
 function scoreGame() {
     $('#radio-1d').is(":checked") ? correct++ : incorrect++;
@@ -72,17 +41,46 @@ $(document).ready(function() {
 
     console.log( "ready!" );
     // debugger;
-    currentQuestion = 0;
 
-
+    timerDiv = $('#timer');
     timerh = $('#timerh');
     timersp = $('#timersp');
     mainGameArea = $('#main-game-area');
 
-    $('#show-q').click(showQ);
-    // $('#show-q2').click(showQ2);
-    $('#clear-q').click(clearQ);
-    $('#timer-expire').click(timerExpire);
+    timerDiv.hide();
+    mainGameArea.hide();
+    
+    $('#start-game').click(function() {
+        $(this).hide();
+        timerDiv.show();
+        mainGameArea.show();
+        timer = timerMax;
+
+
+
+        if (!timerOn) {
+            timersp.text(timer);
+            timerOn = true;
+            counterID = setInterval(function () {
+                timer--;
+    
+                timersp.text(timer);
+    
+                if (timer <= 0) {
+                    
+                    alert('time up');
+                    scoreGame();
+                    clearInterval(counterID);
+                    timerOn = false;
+                    return;
+                }
+            }, 1000);
+        }
+    
+    });
+
+
+
     $('#score-me').click(scoreGame);
 
 
