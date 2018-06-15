@@ -1,5 +1,4 @@
-# TriviaGame
-Trivia Game for HW5
+# Trivia Game
 
 Using HTML, CSS, and jQuery JavaScript, build a trivia game of multiple choice or true/false questions. Pick a theme.
 
